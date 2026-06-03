@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ReviewLift AI</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="mark" aria-hidden="true">R</div>
+          <div>
+            <p class="eyebrow">ReviewLift AI</p>
+            <h1>Done-for-you review recovery desk</h1>
+          </div>
+        </div>
+        <div class="top-actions">
+          <a class="button ghost" href="/partner.html">Partner program</a>
+          <a class="button ghost" id="setupLink" href="/start.html">Book audit</a>
+          <a class="button primary" id="subscribeLink" href="/start.html">Start pilot</a>
+        </div>
+      </header>
+
+      <section class="revenue-band" aria-label="Service packages">
+        <div class="revenue-copy">
+          <p class="eyebrow">For local businesses with unanswered reviews</p>
+          <h2>Reply fast, move complaints private, and turn happy customers into fresh reviews.</h2>
+          <p>Built for restaurants, salons, clinics, auto shops, remodelers, and service offices where reputation affects calls every week. Google requests stay opt-in and compliant; Yelp work is response and recovery only.</p>
+        </div>
+        <div class="package-grid">
+          <article class="package">
+            <span class="package-label">3-day pilot</span>
+            <strong>$999 / RMB 6,800</strong>
+            <p>20 recent reviews, recovery templates, and front-desk request copy.</p>
+          </article>
+          <article class="package emphasized">
+            <span class="package-label">Standard desk</span>
+            <strong>$2,500 + $300/mo</strong>
+            <p>Weekly monitoring, reply drafts, owner notes, and monthly report.</p>
+          </article>
+          <article class="package">
+            <span class="package-label">Multi-location</span>
+            <strong>RMB 49,800+</strong>
+            <p>Chain/store rollout with unified templates and manager training.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Review response generator">
+        <form class="panel input-panel" id="reviewForm">
+          <div class="section-heading">
+            <h2>Sample Review</h2>
+            <span class="status-pill" id="aiStatus">Template mode</span>
+          </div>
+
+          <label>
+            Business name
+            <input name="businessName" value="Golden Wok Kitchen" autocomplete="organization" />
+          </label>
+
+          <div class="field-grid">
+            <label>
+              Business type
+              <input name="businessType" value="Chinese restaurant" />
+            </label>
+            <label>
+              Customer
+              <input name="customerName" value="Alex" />
+            </label>
+          </div>
+
+          <div class="field-grid compact">
+            <label>
+              Rating
+              <select name="rating">
+                <option value="1">1 star</option>
+                <option value="2">2 stars</option>
+                <option value="3" selected>3 stars</option>
+                <option value="4">4 stars</option>
+                <option value="5">5 stars</option>
+              </select>
+            </label>
+            <label>
+              Platform
+              <select name="primaryPlatform">
+                <option value="Google" selected>Google</option>
+                <option value="Yelp">Yelp</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+            <label>
+              Language
+              <select name="language">
+                <option value="bilingual" selected>English + Chinese</option>
+                <option value="English">English</option>
+                <option value="Chinese">Chinese</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-grid compact">
+            <label>
+              Tone
+              <select name="tone">
+                <option value="warm" selected>Warm</option>
+                <option value="professional">Professional</option>
+                <option value="apologetic">Apologetic</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Review text
+            <textarea name="reviewText" rows="8">Food was good but pickup took 35 minutes longer than promised and nobody explained what happened.</textarea>
+          </label>
+
+          <button class="button primary full" type="submit">Generate client sample</button>
+        </form>
+
+        <section class="panel output-panel" aria-live="polite">
+          <div class="section-heading">
+            <h2>Client Sample Kit</h2>
+            <button class="icon-button" id="copyAll" type="button" aria-label="Copy all generated text">Copy</button>
+          </div>
+
+          <div class="output-grid">
+            <article class="asset">
+              <div class="asset-title">
+                <span>Public Reply</span>
+                <button type="button" data-copy="publicReply">Copy</button>
+              </div>
+              <p id="publicReply">Generate a kit to create the public response.</p>
+            </article>
+
+            <article class="asset">
+              <div class="asset-title">
+                <span>Private Follow-up</span>
+                <button type="button" data-copy="privateFollowUp">Copy</button>
+              </div>
+              <p id="privateFollowUp">The recovery message will appear here.</p>
+            </article>
+
+            <article class="asset">
+              <div class="asset-title">
+                <span>Google Request / Feedback Note</span>
+                <button type="button" data-copy="reviewRequest">Copy</button>
+              </div>
+              <p id="reviewRequest">The Google request or platform-safe feedback note will appear here.</p>
+            </article>
+
+            <article class="asset">
+              <div class="asset-title">
+                <span>Owner Actions</span>
+                <button type="button" data-copy="actionPlan">Copy</button>
+              </div>
+              <ul id="actionPlan">
+                <li>Generate a kit to see the action list.</li>
+              </ul>
+            </article>
+          </div>
+
+          <aside class="signal">
+            <div>
+              <span class="metric">24h</span>
+              <p>Reply window</p>
+            </div>
+            <div>
+              <span class="metric">$999</span>
+              <p>Pilot floor</p>
+            </div>
+            <div>
+              <span class="metric">RMB 49.8k</span>
+              <p>Multi-store target</p>
+            </div>
+          </aside>
+        </section>
+      </section>
+
+      <section class="contact-band" id="contact">
+        <form id="leadForm" class="lead-form" name="reviewlift-lead" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="reviewlift-lead" />
+          <input type="hidden" name="sourcePage" value="home-audit" />
+          <input type="hidden" name="offer" value="reputation audit" />
+          <p class="hidden-field">
+            <label>Do not fill this out <input name="bot-field" /></label>
+          </p>
+          <div>
+            <h2>Start with a reputation audit</h2>
+            <p>Send the business link, choose the offer, and prepare the first sample before the call.</p>
+          </div>
+          <input name="businessName" placeholder="Business name" />
+          <input name="email" type="email" placeholder="Owner email" />
+          <input name="phone" placeholder="Phone or WeChat" />
+          <button class="button dark" type="submit">Save prospect</button>
+        </form>
+        <p class="form-message" id="leadMessage"></p>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

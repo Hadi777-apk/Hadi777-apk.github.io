@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="reviewlift-contact-email" content="gengjingshu123@gmail.com" />
+    <title>Start ReviewLift Pilot</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand brand-link" href="/" aria-label="ReviewLift AI home">
+          <div class="mark" aria-hidden="true">R</div>
+          <div>
+            <p class="eyebrow">ReviewLift AI</p>
+            <h1>Start Pilot</h1>
+          </div>
+        </a>
+        <div class="top-actions">
+          <a class="button ghost" href="/">Live demo</a>
+          <a class="button ghost" href="/partner.html">Partner program</a>
+        </div>
+      </header>
+
+      <section class="start-hero" aria-label="Pilot start">
+        <div class="start-copy">
+          <p class="eyebrow">Invoice request and onboarding</p>
+          <h2>Start with a 3-day review recovery pilot.</h2>
+          <p>Send your business link, choose a package, and tell us the payment method you prefer. We will confirm scope, send payment instructions, and begin after deposit is received.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#start-form">Request invoice</a>
+            <a class="button ghost" href="/#reviewForm">Generate sample first</a>
+          </div>
+        </div>
+        <div class="start-summary">
+          <article>
+            <span class="package-label">Fastest start</span>
+            <strong>USD 999 / RMB 6,800</strong>
+            <p>20 recent reviews, public replies, private recovery messages, and Google/feedback front-desk copy.</p>
+          </article>
+          <article>
+            <span class="package-label">Weekly desk</span>
+            <strong>USD 2,500 setup + USD 300/mo</strong>
+            <p>Owner-approved drafts, weekly monitoring, recovery notes, and monthly reputation report.</p>
+          </article>
+          <article>
+            <span class="package-label">Multi-location</span>
+            <strong>RMB 49,800+</strong>
+            <p>Template rollout, manager training, and shared review workflow across stores or member groups.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="start-layout" id="start-form">
+        <form id="leadForm" class="panel input-panel start-form" name="reviewlift-start" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="reviewlift-start" />
+          <input type="hidden" name="sourcePage" value="start-pilot" />
+          <p class="hidden-field">
+            <label>Do not fill this out <input name="bot-field" /></label>
+          </p>
+
+          <div class="section-heading">
+            <h2>Invoice request</h2>
+            <span class="status-pill">No card charged here</span>
+          </div>
+
+          <label>
+            Business or organization
+            <input name="businessName" placeholder="Business name" autocomplete="organization" />
+          </label>
+
+          <div class="field-grid">
+            <label>
+              Email
+              <input name="email" type="email" placeholder="owner@example.com" autocomplete="email" />
+            </label>
+            <label>
+              Phone or WeChat
+              <input name="phone" placeholder="Phone / WeChat" autocomplete="tel" />
+            </label>
+          </div>
+
+          <div class="field-grid">
+            <label>
+              Package
+              <select name="offer">
+                <option value="3-day pilot USD 999 / RMB 6800" selected>3-day pilot: USD 999 / RMB 6,800</option>
+                <option value="standard desk USD 2500 setup + USD 300 monthly">Standard desk: USD 2,500 + USD 300/mo</option>
+                <option value="multi-location rollout RMB 49800 plus">Multi-location rollout: RMB 49,800+</option>
+                <option value="partner mini-clinic">Partner mini-clinic / member workshop</option>
+              </select>
+            </label>
+            <label>
+              Preferred payment
+              <select name="paymentPreference">
+                <option value="Stripe or card invoice" selected>Stripe / card invoice</option>
+                <option value="PayPal">PayPal</option>
+                <option value="WeChat or Alipay">WeChat / Alipay</option>
+                <option value="Bank transfer">Bank transfer</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Business review link or note
+            <textarea name="note" rows="5" placeholder="Paste Google/Yelp link, number of locations, or the reviews you want handled first."></textarea>
+          </label>
+
+          <button class="button primary full" type="submit">Request payment instructions</button>
+        </form>
+
+        <aside class="panel start-panel">
+          <div class="section-heading">
+            <h2>What happens next</h2>
+            <span class="status-pill">3-day delivery</span>
+          </div>
+          <ol class="timeline-list">
+            <li>We confirm platform links, locations, and the review set.</li>
+            <li>You receive payment instructions or invoice for the chosen package.</li>
+            <li>After deposit, we prepare the first reply/recovery kit within 24 hours.</li>
+            <li>You approve drafts before anything is posted publicly.</li>
+          </ol>
+          <div class="compliance-box">
+            <h2>Boundaries</h2>
+            <p>No fake reviews, paid reviews, selective review gating, or promises to delete negative reviews. Yelp work is reply and recovery only.</p>
+          </div>
+        </aside>
+      </section>
+
+      <p class="form-message" id="leadMessage"></p>
+      <section class="fallback-card" id="leadFallbackCard" hidden>
+        <div class="section-heading">
+          <h2>Payment request summary</h2>
+          <button class="icon-button" id="copyLeadSummary" type="button">Copy</button>
+        </div>
+        <textarea id="leadFallbackSummary" rows="8" readonly></textarea>
+        <a class="button primary full" id="emailLeadSummary" href="#">Email payment request</a>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

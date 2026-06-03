@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ReviewLift Partner Program</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand brand-link" href="/" aria-label="ReviewLift AI home">
+          <div class="mark" aria-hidden="true">R</div>
+          <div>
+            <p class="eyebrow">ReviewLift AI</p>
+            <h1>Partner Program</h1>
+          </div>
+        </a>
+        <div class="top-actions">
+          <a class="button ghost" href="/">Live demo</a>
+          <a class="button ghost" href="/start.html">Start pilot</a>
+          <a class="button primary" href="#partner-contact">Offer member clinic</a>
+        </div>
+      </header>
+
+      <section class="partner-hero" aria-label="Partner offer">
+        <div class="partner-copy">
+          <p class="eyebrow">For chambers, associations, suppliers, and advisor networks</p>
+          <h2>ReviewLift Member Mini-Clinic</h2>
+          <p>Give local business owners a practical 20-minute review recovery session: public reply examples, private complaint follow-up, and platform-safe Google review or first-party feedback workflows.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#partner-contact">Send the workshop outline</a>
+            <a class="button ghost" href="/#reviewForm">Try the sample generator</a>
+          </div>
+        </div>
+        <figure class="product-shot">
+          <img src="/assets/reviewlift-demo.png" alt="ReviewLift AI sample kit showing public reply, private follow-up, review request, and owner actions" />
+          <figcaption>Sample output used in the member mini-clinic.</figcaption>
+        </figure>
+      </section>
+
+      <section class="clinic-grid" aria-label="Mini clinic flow">
+        <article class="clinic-step">
+          <span>01</span>
+          <h2>Pick 3 member businesses</h2>
+          <p>Restaurants, salons, clinics, auto shops, home services, and multi-location operators usually feel the pain fastest.</p>
+        </article>
+        <article class="clinic-step">
+          <span>02</span>
+          <h2>Create free sample replies</h2>
+          <p>Each owner sees one public reply, one private recovery message, and one front-desk action they can use immediately.</p>
+        </article>
+        <article class="clinic-step">
+          <span>03</span>
+          <h2>Convert to a pilot</h2>
+          <p>Qualified owners can start with a 3-day pilot, then upgrade to a weekly desk or multi-location rollout.</p>
+        </article>
+      </section>
+
+      <section class="partner-split" aria-label="Partner economics and compliance">
+        <div class="panel partner-panel">
+          <div class="section-heading">
+            <h2>Partner economics</h2>
+            <span class="status-pill">Collected revenue only</span>
+          </div>
+          <div class="rate-list">
+            <div>
+              <strong>USD 999 / RMB 6,800 pilot</strong>
+              <p>20 recent reviews, response templates, and front-desk request copy.</p>
+            </div>
+            <div>
+              <strong>USD 2,500 setup + USD 300/mo</strong>
+              <p>Weekly monitoring, owner-approved drafts, recovery messages, and monthly reporting.</p>
+            </div>
+            <div>
+              <strong>RMB 49,800+ rollout</strong>
+              <p>For member groups, chains, franchisees, and multi-store operators.</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel partner-panel">
+          <div class="section-heading">
+            <h2>Compliance boundary</h2>
+            <span class="status-pill">Owner approved</span>
+          </div>
+          <ul class="check-list">
+            <li>No fake reviews, paid reviews, or review incentives.</li>
+            <li>No promises to delete negative reviews.</li>
+            <li>Google workflows can use review links or QR codes.</li>
+            <li>Yelp workflows are reply and recovery only, with no Yelp review solicitation.</li>
+          </ul>
+          <div class="source-row" aria-label="Sources">
+            <a href="https://support.google.com/business/answer/3474050">Google reviews help</a>
+            <a href="https://www.yelp.com/guidelines/content-guidelines">Yelp guidelines</a>
+            <a href="https://www.ftc.gov/news-events/news/press-releases/2024/08/federal-trade-commission-announces-final-rule-banning-fake-reviews-testimonials">FTC rule</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-band" id="partner-contact">
+        <form id="leadForm" class="lead-form partner-lead-form" name="reviewlift-lead" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="reviewlift-lead" />
+          <input type="hidden" name="sourcePage" value="partner" />
+          <input type="hidden" name="offer" value="member mini-clinic" />
+          <p class="hidden-field">
+            <label>Do not fill this out <input name="bot-field" /></label>
+          </p>
+          <div>
+            <h2>Offer this to members or clients</h2>
+            <p>Send your organization name and the member group you want to help. We will reply with the workshop outline and sample clinic format.</p>
+          </div>
+          <input name="businessName" placeholder="Organization" autocomplete="organization" />
+          <input name="email" type="email" placeholder="Email" autocomplete="email" />
+          <input name="phone" placeholder="Phone / WeChat" autocomplete="tel" />
+          <textarea name="note" rows="3" placeholder="Industry or members"></textarea>
+          <button class="button dark" type="submit">Request outline</button>
+        </form>
+        <p class="form-message" id="leadMessage"></p>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
