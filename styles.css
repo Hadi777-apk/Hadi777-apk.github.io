@@ -377,6 +377,12 @@ main {
   grid-template-columns: 1fr;
 }
 
+.story-gallery.trio {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 14px 14px 0;
+}
+
 .story-gallery figure {
   width: 100%;
   margin: 0;
@@ -388,12 +394,207 @@ main {
   aspect-ratio: 1.14 / 1;
 }
 
+.story-gallery.trio figure {
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+}
+
 .story-gallery img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
+.remote-image {
+  position: relative;
+}
+
+.remote-image::after {
+  position: absolute;
+  inset: 38% 0 0;
+  content: "";
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.64));
+  pointer-events: none;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  color: #fff;
+  text-align: left;
+}
+
+.image-overlay small {
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.34);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.image-overlay strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: clamp(15px, 1.6vw, 20px);
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.image-overlay em {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.84);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.image-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-content: end;
+  gap: 6px;
+  padding: 12px;
+  color: #fff;
+  text-align: left;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.3), transparent 28%),
+    linear-gradient(135deg, #1f2937, #f97316);
+  box-shadow: inset 0 -52px 72px rgba(0, 0, 0, 0.22);
+}
+
+.image-fallback small {
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.image-fallback strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: clamp(15px, 1.6vw, 20px);
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.image-fallback em {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.82);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.image-failed img {
+  display: none;
+}
+
+.image-failed::after,
+.image-failed .image-overlay {
+  display: none;
+}
+
+.image-failed .image-fallback {
+  display: grid;
+}
+
+.brief-visual {
+  position: relative;
+  display: grid;
+  align-content: end;
+  min-width: 0;
+  padding: 12px;
+  color: #fff;
+  isolation: isolate;
+  box-shadow: inset 0 -50px 70px rgba(0, 0, 0, 0.22);
+}
+
+.brief-visual::before,
+.brief-visual::after {
+  position: absolute;
+  content: "";
+  z-index: -1;
+}
+
+.brief-visual::before {
+  inset: 0;
+  background:
+    radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.36), transparent 28%),
+    linear-gradient(135deg, var(--tile-a), var(--tile-b));
+}
+
+.brief-visual::after {
+  width: 72%;
+  height: 42%;
+  right: -18%;
+  top: 18%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  transform: rotate(-18deg);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.brief-visual span {
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: auto;
+  padding: 4px 7px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.9);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.brief-visual strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 17px;
+  line-height: 1.05;
+}
+
+.brief-visual em {
+  display: block;
+  margin-top: 5px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.tone-0 { --tile-a: #111827; --tile-b: #e77722; }
+.tone-1 { --tile-a: #164e63; --tile-b: #22a699; }
+.tone-2 { --tile-a: #7c2d12; --tile-b: #f59e0b; }
+.tone-3 { --tile-a: #1f2937; --tile-b: #64748b; }
+.tone-4 { --tile-a: #4338ca; --tile-b: #0ea5e9; }
+.tone-5 { --tile-a: #14532d; --tile-b: #84cc16; }
+.tone-6 { --tile-a: #581c87; --tile-b: #f97316; }
 
 .note-source,
 .news-card a,

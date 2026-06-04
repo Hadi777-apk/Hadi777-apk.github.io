@@ -1,9 +1,12 @@
 const state = {
   data: null,
+  imageCounts: new Map(),
   module: "overseas-auto",
   topic: "全部",
   query: ""
 };
+
+const assetVersion = "20260604-imgfix";
 
 const elements = {
   todayLabel: document.querySelector("#todayLabel"),
@@ -301,18 +304,103 @@ function visualsForItem(item, order = 0) {
   return picked;
 }
 
-function renderGallery(item, compact = false, order = 0) {
-  if (item?.imageUrl) {
-    return `
-      <div class="story-gallery single${compact ? " compact" : ""}">
-        <figure>
-          <img src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.imageAlt || item.translatedTitle || item.title || "news image")}" loading="lazy" referrerpolicy="no-referrer" />
-        </figure>
-      </div>
-    `;
-  }
+function imageCount(url = "") {
+  return state.imageCounts.get(url) || 0;
+}
 
-  return "";
+function isBadNewsImageUrl(url = "") {
+  if (!url) return true;
+  const normalized = url.toLowerCase();
+  return (
+    normalized.includes("/gnews/logo/") ||
+    normalized.includes("googleusercontent.com/j6_cofbog") ||
+    imageCount(url) > 6
+  );
+}
+
+function usableImageUrl(item) {
+  const url = item?.imageUrl || "";
+  return isBadNewsImageUrl(url) ? "" : url;
+}
+
+function fallbackVisualsForItem(item, order = 0) {
+  const moduleKey = moduleForItem(item);
+  const topic = item?.topicLabel || item?.topic || "情报";
+  const source = item?.source || "外媒";
+  const title = shortCoreTitle(item);
+  const pools = {
+    "overseas-auto": [
+      ["车企", "海外车间", "产品 / 价格 / 交付"],
+      ["电池", "补能暗线", "续航 / 成本 / 供应链"],
+      ["智驾", "软件上车", "Robotaxi / ADAS"]
+    ],
+    ai: [
+      ["AI", "模型观察", "模型 / 应用 / 入口"],
+      ["算力", "芯片牌桌", "GPU / 推理 / 成本"],
+      ["监管", "产业信号", "资本 / 安全 / 边界"]
+    ],
+    "embodied-ai": [
+      ["具身", "机器干活", "任务 / 训练 / 泛化"],
+      ["人形", "本体进场", "量产 / 成本 / 维护"],
+      ["工厂", "场景落地", "仓储 / 制造 / 物流"]
+    ]
+  };
+  const pool = pools[moduleKey] || pools["overseas-auto"];
+  const start = stableIndex(`${title}|${source}|${order}`, pool.length);
+  return Array.from({ length: 3 }, (_, index) => {
+    const itemData = pool[(start + index) % pool.length];
+    return {
+      kicker: itemData[0],
+      title: index === 0 ? topic : itemData[1],
+      detail: index === 2 ? source : itemData[2],
+      tone: (stableIndex(`${title}|${source}|${index}`, 7) + index) % 7
+    };
+  });
+}
+
+function renderVisualTile(visual) {
+  return `
+    <figure class="brief-visual tone-${visual.tone}">
+      <span>${escapeHtml(visual.kicker)}</span>
+      <strong>${escapeHtml(visual.title)}</strong>
+      <em>${escapeHtml(visual.detail)}</em>
+    </figure>
+  `;
+}
+
+function renderRemoteVisualTile(item, imageUrl) {
+  const topic = item?.topicLabel || item?.topic || "海外情报";
+  const source = item?.source || "外媒";
+  const title = shortCoreTitle(item);
+  return `
+    <figure class="remote-image">
+      <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(item.imageAlt || item.translatedTitle || item.title || "news image")}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('figure').classList.add('image-failed')" />
+      <span class="image-overlay">
+        <small>原图</small>
+        <strong>${escapeHtml(topic)}</strong>
+        <em>${escapeHtml(source)}</em>
+      </span>
+      <span class="image-fallback">
+        <small>${escapeHtml(topic)}</small>
+        <strong>${escapeHtml(title)}</strong>
+        <em>${escapeHtml(source)}</em>
+      </span>
+    </figure>
+  `;
+}
+
+function renderGallery(item, compact = false, order = 0) {
+  const imageUrl = usableImageUrl(item);
+  const visuals = fallbackVisualsForItem(item, order);
+  const figures = imageUrl
+    ? [renderRemoteVisualTile(item, imageUrl), ...visuals.slice(0, 2).map(renderVisualTile)]
+    : visuals.map(renderVisualTile);
+
+  return `
+    <div class="story-gallery trio${compact ? " compact" : ""}">
+      ${figures.join("")}
+    </div>
+  `;
 }
 
 function signalPerspective(signals) {
@@ -807,9 +895,14 @@ function render() {
 }
 
 async function loadNews() {
-  const response = await fetch("./data/news.json", { cache: "no-store" });
+  const response = await fetch(`./data/news.json?v=${assetVersion}`, { cache: "no-store" });
   if (!response.ok) throw new Error("新闻数据加载失败");
   state.data = await response.json();
+  state.imageCounts = new Map();
+  (state.data.items || []).forEach((item) => {
+    if (!item.imageUrl) return;
+    state.imageCounts.set(item.imageUrl, imageCount(item.imageUrl) + 1);
+  });
   render();
 }
 
