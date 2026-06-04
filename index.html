@@ -1,204 +1,94 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ReviewLift AI</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>电动兄弟情报站</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="shell">
-      <header class="topbar">
-        <div class="brand">
-          <div class="mark" aria-hidden="true">R</div>
-          <div>
-            <p class="eyebrow">ReviewLift AI</p>
-            <h1>Done-for-you review recovery desk</h1>
-          </div>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="电动兄弟情报站首页">
+        <img class="brand-logo" src="./assets/ddbro-logo.jpg" alt="电动兄弟 DD BRO" />
+        <div>
+          <p class="eyebrow">DD BRO BRIEF</p>
+          <h1>电动兄弟情报站</h1>
         </div>
-        <div class="top-actions">
-          <a class="button ghost" href="/partner.html">Partner program</a>
-          <a class="button ghost" id="setupLink" href="/start.html">Book audit</a>
-          <a class="button primary" id="subscribeLink" href="/start.html">Start pilot</a>
-        </div>
-      </header>
+      </a>
+      <label class="search">
+        <span>搜索</span>
+        <input id="searchInput" type="search" placeholder="Tesla, OpenAI, NVIDIA, robot..." />
+      </label>
+      <button id="refreshButton" type="button" title="重新载入静态快照">
+        <span aria-hidden="true">↻</span>
+        重新载入
+      </button>
+    </header>
 
-      <section class="revenue-band" aria-label="Service packages">
-        <div class="revenue-copy">
-          <p class="eyebrow">For local businesses with unanswered reviews</p>
-          <h2>Reply fast, move complaints private, and turn happy customers into fresh reviews.</h2>
-          <p>Built for restaurants, salons, clinics, auto shops, remodelers, and service offices where reputation affects calls every week. Google requests stay opt-in and compliant; Yelp work is response and recovery only.</p>
-        </div>
-        <div class="package-grid">
-          <article class="package">
-            <span class="package-label">3-day pilot</span>
-            <strong>$999 / RMB 6,800</strong>
-            <p>20 recent reviews, recovery templates, and front-desk request copy.</p>
-          </article>
-          <article class="package emphasized">
-            <span class="package-label">Standard desk</span>
-            <strong>$2,500 + $300/mo</strong>
-            <p>Weekly monitoring, reply drafts, owner notes, and monthly report.</p>
-          </article>
-          <article class="package">
-            <span class="package-label">Multi-location</span>
-            <strong>RMB 49,800+</strong>
-            <p>Chain/store rollout with unified templates and manager training.</p>
-          </article>
-        </div>
-      </section>
+    <main>
+      <section class="module-tabs" id="moduleTabs" aria-label="资讯模块"></section>
 
-      <section class="workspace" aria-label="Review response generator">
-        <form class="panel input-panel" id="reviewForm">
+      <section class="grid-layout">
+        <section class="feed-column" aria-labelledby="feedTitle">
+          <section class="hero" aria-labelledby="briefTitle">
+            <div class="hero-copy">
+              <p id="todayLabel" class="date-label">正在加载</p>
+              <h2 id="briefTitle">海外汽车资讯</h2>
+              <p id="briefSummary">像逛社区一样看海外汽车、海外 AI 和海外具身智能。</p>
+            </div>
+            <div class="meta-panel" aria-label="更新状态">
+              <span>更新时间</span>
+              <strong id="updatedAt">--</strong>
+              <span>静态快照</span>
+              <strong id="nextRefresh">--</strong>
+            </div>
+          </section>
+
+          <section class="toolbar" aria-label="新闻筛选">
+            <div id="topicFilters" class="filters"></div>
+          </section>
+
           <div class="section-heading">
-            <h2>Sample Review</h2>
-            <span class="status-pill" id="aiStatus">Template mode</span>
+            <h2 id="feedTitle">新闻流</h2>
+            <span id="itemCount">0 条</span>
           </div>
-
-          <label>
-            Business name
-            <input name="businessName" value="Golden Wok Kitchen" autocomplete="organization" />
-          </label>
-
-          <div class="field-grid">
-            <label>
-              Business type
-              <input name="businessType" value="Chinese restaurant" />
-            </label>
-            <label>
-              Customer
-              <input name="customerName" value="Alex" />
-            </label>
-          </div>
-
-          <div class="field-grid compact">
-            <label>
-              Rating
-              <select name="rating">
-                <option value="1">1 star</option>
-                <option value="2">2 stars</option>
-                <option value="3" selected>3 stars</option>
-                <option value="4">4 stars</option>
-                <option value="5">5 stars</option>
-              </select>
-            </label>
-            <label>
-              Platform
-              <select name="primaryPlatform">
-                <option value="Google" selected>Google</option>
-                <option value="Yelp">Yelp</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
-            <label>
-              Language
-              <select name="language">
-                <option value="bilingual" selected>English + Chinese</option>
-                <option value="English">English</option>
-                <option value="Chinese">Chinese</option>
-              </select>
-            </label>
-          </div>
-
-          <div class="field-grid compact">
-            <label>
-              Tone
-              <select name="tone">
-                <option value="warm" selected>Warm</option>
-                <option value="professional">Professional</option>
-                <option value="apologetic">Apologetic</option>
-              </select>
-            </label>
-          </div>
-
-          <label>
-            Review text
-            <textarea name="reviewText" rows="8">Food was good but pickup took 35 minutes longer than promised and nobody explained what happened.</textarea>
-          </label>
-
-          <button class="button primary full" type="submit">Generate client sample</button>
-        </form>
-
-        <section class="panel output-panel" aria-live="polite">
-          <div class="section-heading">
-            <h2>Client Sample Kit</h2>
-            <button class="icon-button" id="copyAll" type="button" aria-label="Copy all generated text">Copy</button>
-          </div>
-
-          <div class="output-grid">
-            <article class="asset">
-              <div class="asset-title">
-                <span>Public Reply</span>
-                <button type="button" data-copy="publicReply">Copy</button>
-              </div>
-              <p id="publicReply">Generate a kit to create the public response.</p>
-            </article>
-
-            <article class="asset">
-              <div class="asset-title">
-                <span>Private Follow-up</span>
-                <button type="button" data-copy="privateFollowUp">Copy</button>
-              </div>
-              <p id="privateFollowUp">The recovery message will appear here.</p>
-            </article>
-
-            <article class="asset">
-              <div class="asset-title">
-                <span>Google Request / Feedback Note</span>
-                <button type="button" data-copy="reviewRequest">Copy</button>
-              </div>
-              <p id="reviewRequest">The Google request or platform-safe feedback note will appear here.</p>
-            </article>
-
-            <article class="asset">
-              <div class="asset-title">
-                <span>Owner Actions</span>
-                <button type="button" data-copy="actionPlan">Copy</button>
-              </div>
-              <ul id="actionPlan">
-                <li>Generate a kit to see the action list.</li>
-              </ul>
-            </article>
-          </div>
-
-          <aside class="signal">
-            <div>
-              <span class="metric">24h</span>
-              <p>Reply window</p>
-            </div>
-            <div>
-              <span class="metric">$999</span>
-              <p>Pilot floor</p>
-            </div>
-            <div>
-              <span class="metric">RMB 49.8k</span>
-              <p>Multi-store target</p>
-            </div>
-          </aside>
+          <div id="newsList" class="news-list"></div>
+          <p id="emptyState" class="empty" hidden>没有匹配的新闻。</p>
         </section>
-      </section>
 
-      <section class="contact-band" id="contact">
-        <form id="leadForm" class="lead-form" name="reviewlift-lead" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="reviewlift-lead" />
-          <input type="hidden" name="sourcePage" value="home-audit" />
-          <input type="hidden" name="offer" value="reputation audit" />
-          <p class="hidden-field">
-            <label>Do not fill this out <input name="bot-field" /></label>
-          </p>
-          <div>
-            <h2>Start with a reputation audit</h2>
-            <p>Send the business link, choose the offer, and prepare the first sample before the call.</p>
+        <aside class="highlights" aria-labelledby="highlightsTitle">
+          <div class="side-menu" aria-label="快捷入口">
+            <div class="side-link">
+              <span class="side-icon">海</span>
+              <div><strong>海外车间</strong><small>车企、电池、自动驾驶</small></div>
+            </div>
+            <div class="side-link">
+              <span class="side-icon">AI</span>
+              <div><strong>AI 观察</strong><small>模型、算力、应用</small></div>
+            </div>
+            <div class="side-link">
+              <span class="side-icon">机</span>
+              <div><strong>具身智能</strong><small>机器人、工厂、物流</small></div>
+            </div>
           </div>
-          <input name="businessName" placeholder="Business name" />
-          <input name="email" type="email" placeholder="Owner email" />
-          <input name="phone" placeholder="Phone or WeChat" />
-          <button class="button dark" type="submit">Save prospect</button>
-        </form>
-        <p class="form-message" id="leadMessage"></p>
+          <h2 id="highlightsTitle">重点速览</h2>
+          <div id="highlightsList" class="highlight-list"></div>
+          <div class="side-actions">
+            <span>微博</span>
+            <span>微信</span>
+            <span>原文</span>
+            <span>电动兄弟App</span>
+          </div>
+        </aside>
       </section>
     </main>
 
-    <script src="/app.js" type="module"></script>
+    <button class="floating-action" type="button" title="重新载入静态快照" onclick="document.querySelector('#refreshButton')?.click()">+</button>
+
+    <footer>
+      新闻来自公开国际 RSS 聚合源；点击标题可查看原文。站点前台使用静态快照发布，更新失败时也不影响打开。
+    </footer>
+
+    <script src="./app.js?v=20260602-ddbro-intel" type="module"></script>
   </body>
 </html>
